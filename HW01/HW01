@@ -1,0 +1,36 @@
+Name - Sierra
+
+Location (Country) - DOE Lawrence Livermore National Laboratory (United States)
+
+Processor Architecture (x86/power/ARM/etc) - POWER9
+
+Processor Type - IBM POWER9 22C 3.1GHz
+
+Total number of Cores - 1,572,480
+
+RMax/RPeak - 94.64 PFlop/s | 125.71 PFlop/s
+
+Power Consumption - 7,438.28 kW
+
+Any accelerators (GPUs, XeonPhi, etc) - NVIDIA Volta GV100
+
+
+Any interesting info you can find on this machine (you can use sources other than top500.org)
+
+Though this may be the case for a lot of the top supercomputers for obvious optimization purposes, this supercomputer is using an in-house developed compiler by the name of IBM XLC. Based on some brief research, this appears to be the case because this supercomputer is built on IBM's Power platform which relies on a personalized compiler for all C and C++ code. This is because the supercomputer is not running the more prevalent Intel or AMD platforms that likely don't require a separate compiler other than those produced alongside those platforms.
+
+Sierras enclosures look way cooler than any of the other top supercomputers I've seen.
+
+Sierra is primarily used for the simulation of nuclear weapons and other scientific research. This is expected from the DOE.
+
+Sierra has openly advertised job limits:
+
+pdebug -->
+	Max nodes -> 18
+	Max runtime -> 2 hrs
+
+pbatch -->
+	Max nodes -> 2048
+	Max runtime -> 24 hrs
+
+The intention of these two modes is that pdebug be interactive, while pbatch, as the name implies, is mean for batch jobs and otherwise production-oriented computation.
