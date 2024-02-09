@@ -25,7 +25,7 @@ static void generic_convolve(struct image_t *input_image,
 				struct image_t *output_image,
 				int *filter) {
 
-
+// Comment
 	/* Look at the above image_t definition			*/
 	/* You can use input_image->xsize (width)  		*/
 	/*             input_image->ysize (height) 		*/
@@ -38,30 +38,42 @@ static void generic_convolve(struct image_t *input_image,
 
 //	output_image->pixels = input_image->pixels;
 
-	int sum;
+	int current;
 
-	for (int i = 1; i < input_image->xsize - 1; i++) {
-		for (int j = 1; j < input_image->ysize - 1; j++) {
-				
-			sum = 0;
-		
+	for (int i = 3; i < input_image->ysize - 3; i++) {
+		for (int j = 3; j < 3 * input_image->xsize - 3; j++) {
+			//printf("X: %d Y: %d\n", j, i);		
+//			sum = 0;
+			//output_image->pixels[input_image->xsize * (j - 1) + i] = 0;
+			printf("X: %d Y: %d\n", j, i);
 			for (int k = -1; k <= 1; k++) {
 				for (int l = -1; l <= 1; l++) {
-					
-				sum += (input_image->pixels[input_image->xsize * (j + l) + i + k] * filter[3 * (1 + l) + (1 + k)]);
+					current = input_image->xsize * input_image->depth * (j - 1) + i;
+					printf("Index: %d\n",  input_image->xsize * input_image->depth * (i + k) + j + l * input_image->depth);				
+//	output_image->pixels[current] += input_image->pixels[input_image->xsize * input_image->depth * (i + k) + j + l * input_image->depth];
+
+	//output_image->pixels[current] += input_image->pixels[current] * filter[input_image->depth * (1 + k) + (1 + l)];
+	
+//	printf("Pixel: %d\n", input_image->xsize * (i + k) + j + l);
+//					sum += (input_image->pixels[input_image->xsize * (i + k) + j + l] * filter[3 * (1 + k) + (1 + l)]);
 
 	//printf("Row: %d | Col: %d\n", 7 * (i + l) + j + k, 3 * (1 + l) + (1 - k));	
 				//output_image->pixels[7 * (i + l) + j + k] *= sobel_x_filter[3 * (1 + l) + (1 - k)];
 				}
 			}
+/*
 			if (sum < 0) {
 				sum = 0;
+			} else if (sum > 255) {
+				sum = 255;
 			}
+*/
+//			printf("Sum: %d\n", sum);
 
 			//printf("%d\n", input_image->xsize * (i - 1) + j);
 		//	printf("Sum: %d | Mod 255: %d\n", sum, sum % 255);
 		//	output_image->pixels[input_image->xsize * (i - 1) + j] = sum % 255;;
-			output_image->pixels[input_image->xsize * (j - 1) + i] = 255;
+	//		output_image->pixels[input_image->xsize * (j - 1) + i] = 255;
 
 
 			//	printf("Sum: %d\n", sum);
@@ -260,7 +272,7 @@ int main(int argc, char **argv) {
 			sobel_y_filter);
 
 	/* Uncomment to generate an image for the y results */
-//	store_jpeg("outy.jpg",&sobel_y);
+	store_jpeg("outy.jpg",&sobel_y);
 
 	/* Combine the results */
 	combine(&sobel_x,&sobel_y,&new_image);
