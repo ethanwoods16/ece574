@@ -39,20 +39,19 @@ static void generic_convolve(struct image_t *input_image,
 //	output_image->pixels = input_image->pixels;
 
 	int current;
-
+	int sum;
 	for (int i = 3; i < input_image->ysize - 3; i++) {
 		for (int j = 3; j < 3 * input_image->xsize - 3; j++) {
 			//printf("X: %d Y: %d\n", j, i);		
-//			sum = 0;
+			sum = 0;
 			//output_image->pixels[input_image->xsize * (j - 1) + i] = 0;
 			printf("X: %d Y: %d\n", j, i);
+			current = input_image->xsize * input_image->depth * (i - 1) + j;
 			for (int k = -1; k <= 1; k++) {
 				for (int l = -1; l <= 1; l++) {
-					current = input_image->xsize * input_image->depth * (j - 1) + i;
-					printf("Index: %d\n",  input_image->xsize * input_image->depth * (i + k) + j + l * input_image->depth);				
-//	output_image->pixels[current] += input_image->pixels[input_image->xsize * input_image->depth * (i + k) + j + l * input_image->depth];
-
-	//output_image->pixels[current] += input_image->pixels[current] * filter[input_image->depth * (1 + k) + (1 + l)];
+					//printf("Val: %d\n",  input_image->pixels[input_image->xsize * input_image->depth * (i + k) + j + l * input_image->depth]);
+					//printf("Index: %d\n",  input_image->xsize * input_image->depth * (i + k) + j + l * input_image->depth);				
+					sum += input_image->pixels[input_image->xsize * input_image->depth * (i + k) + j + l * input_image->depth] * filter[3 * (1 + k) + (1 + l)];
 	
 //	printf("Pixel: %d\n", input_image->xsize * (i + k) + j + l);
 //					sum += (input_image->pixels[input_image->xsize * (i + k) + j + l] * filter[3 * (1 + k) + (1 + l)]);
@@ -61,13 +60,12 @@ static void generic_convolve(struct image_t *input_image,
 				//output_image->pixels[7 * (i + l) + j + k] *= sobel_x_filter[3 * (1 + l) + (1 - k)];
 				}
 			}
-/*
 			if (sum < 0) {
-				sum = 0;
+				output_image->pixels[current] = 0;
 			} else if (sum > 255) {
-				sum = 255;
+				output_image->pixels[current] = 255;
 			}
-*/
+
 //			printf("Sum: %d\n", sum);
 
 			//printf("%d\n", input_image->xsize * (i - 1) + j);
